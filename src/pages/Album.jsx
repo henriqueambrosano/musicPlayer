@@ -15,6 +15,7 @@ class Album extends React.Component {
   async componentDidMount() {
     const { match: { params } } = this.props;
     const album = await getMusics(params.id);
+    console.log(album);
     this.setState({
       albumImage: album[0].artworkUrl100,
       artistName: album[0].artistName,
@@ -39,6 +40,7 @@ class Album extends React.Component {
               key={ track.trackName }
               trackName={ track.trackName }
               previewUrl={ track.previewUrl }
+              trackId={ track.trackId }
             />))}
           </div>
         </div>
