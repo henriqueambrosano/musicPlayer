@@ -33,7 +33,7 @@ class Login extends React.Component {
   }
 
   render() {
-    const { buttonDisabled, loading, loaded } = this.state;
+    const { buttonDisabled, loading, loaded, name } = this.state;
     const loadingElement = <h1>Carregando...</h1>;
     return (
       <div data-testid="page-login">
@@ -48,6 +48,7 @@ class Login extends React.Component {
                 type="text"
                 placeholder="Digite seu nome"
                 name="name"
+                value={ name }
                 onChange={ this.onInputChange }
               />
               <button
