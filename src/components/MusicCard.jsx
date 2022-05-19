@@ -20,7 +20,7 @@ class MusicCard extends React.Component {
   }
 
   render() {
-    const { previewUrl, trackName, trackId } = this.props;
+    const { previewUrl, trackName, trackId, isChecked } = this.props;
     const { loading, isFavorite } = this.state;
     const loadingElement = <p>Carregando...</p>;
     return (
@@ -36,7 +36,7 @@ class MusicCard extends React.Component {
           : (
             <label htmlFor="favorite">
               <input
-                checked={ isFavorite }
+                checked={ isChecked || isFavorite }
                 name="favoriteSongs"
                 type="checkbox"
                 id="favorite"
@@ -55,6 +55,7 @@ MusicCard.propTypes = {
   previewUrl: PropTypes.string.isRequired,
   trackName: PropTypes.string.isRequired,
   trackId: PropTypes.number.isRequired,
+  isChecked: PropTypes.bool.isRequired,
 };
 
 export default MusicCard;
