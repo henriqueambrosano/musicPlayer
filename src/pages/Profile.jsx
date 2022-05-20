@@ -5,14 +5,14 @@ import { getUser } from '../services/userAPI';
 
 class Profile extends React.Component {
   state = {
-    loading: true,
+    loading: false,
     image: '',
     name: '',
     email: '',
     description: '',
   }
 
-  componentDidMount = async () => {
+  async componentDidMount() {
     const userData = await getUser();
     const { description, name, image, email } = userData;
     this.setState({ description, name, image, email, loading: false });
