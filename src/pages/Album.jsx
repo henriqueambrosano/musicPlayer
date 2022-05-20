@@ -13,6 +13,7 @@ class Album extends React.Component {
 
   state = {
     loading: true,
+    trackLoading: false,
     albumImage: '',
     artistName: '',
     albumName: '',
@@ -41,17 +42,19 @@ class Album extends React.Component {
   }
 
   async addRemoveFavorite(music) {
+    this.setState({ loading: true });
     if (this.isFavorite(music)) {
       await removeSong(music);
     } else {
       await addSong(music);
     }
     const favoriteTracks = await getFavoriteSongs();
-    this.setState({ favoriteTracks });
+    this.setState({ favoriteTracks, loading: false });
   }
 
   render() {
-    const { albumImage, artistName, albumName, tracks, loading } = this.state;
+    const { albumImage, artistName, albumName, tracks, loading,
+      trackLoading } = this.state;
     const loadingElement = <p>Carregando...</p>;
     return (
       <div data-testid="page-album">
@@ -62,15 +65,14 @@ class Album extends React.Component {
             <h2 data-testid="album-name">{albumName}</h2>
             <h3 data-testid="artist-name">{artistName}</h3>
           </div>
+          {loading && loadingElement}
           <div className="tracks">
-            {tracks.map((track) => (loading ? loadingElement : <MusicCard
+            {tracks.map((track) => (<MusicCard
               music={ track }
               handleRemove={ this.addRemoveFavorite }
               isChecked={ this.isFavorite(track) }
-              key={ track.trackName }
-              trackName={ track.trackName }
-              previewUrl={ track.previewUrl }
-              trackId={ track.trackId }
+              key={ track.trackId }
+              trackLoading={ trackLoading }
             />))}
           </div>
         </div>
