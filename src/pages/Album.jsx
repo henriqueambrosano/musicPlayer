@@ -3,9 +3,14 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import getMusics from '../services/musicsAPI';
 import MusicCard from '../components/MusicCard';
-import { getFavoriteSongs } from '../services/favoriteSongsAPI';
+import { addSong, getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
 
 class Album extends React.Component {
+  constructor(props) {
+    super(props);
+    this.addRemoveFavorite = this.addRemoveFavorite.bind(this);
+  }
+
   state = {
     loading: true,
     albumImage: '',
@@ -35,6 +40,16 @@ class Album extends React.Component {
       item.trackId === track.trackId));
   }
 
+  async addRemoveFavorite(music) {
+    if (this.isFavorite(music)) {
+      await removeSong(music);
+    } else {
+      await addSong(music);
+    }
+    const favoriteTracks = await getFavoriteSongs();
+    this.setState({ favoriteTracks });
+  }
+
   render() {
     const { albumImage, artistName, albumName, tracks, loading } = this.state;
     const loadingElement = <p>Carregando...</p>;
@@ -49,6 +64,8 @@ class Album extends React.Component {
           </div>
           <div className="tracks">
             {tracks.map((track) => (loading ? loadingElement : <MusicCard
+              music={ track }
+              handleRemove={ this.addRemoveFavorite }
               isChecked={ this.isFavorite(track) }
               key={ track.trackName }
               trackName={ track.trackName }
