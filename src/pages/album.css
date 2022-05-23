@@ -5,11 +5,11 @@
 }
 
 .album {
-  text-align: center;
   margin: 0 50px;
+  text-align: center;
 }
 
 .album img {
-  height: 300px;
   border: 1px solid black;
+  height: 300px;
 }

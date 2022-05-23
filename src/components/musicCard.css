@@ -1,19 +1,19 @@
 .track {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
   margin: 20px;
 }
 
 .line {
-  width: 100%;
-  height: 2px;
   background-color: #dde0e3;
+  height: 2px;
+  width: 100%;
 }
 
 .audio-container {
-  display: flex;
   align-items: center;
+  display: flex;
 }
 
 .track audio {
@@ -28,16 +28,16 @@
 }
 
 .favorite:checked + .is-favorite {
-  display: block;
-  font-size: 25px;
   color: red;
   cursor: pointer;
+  display: block;
+  font-size: 25px;
 }
 
 .favorite ~ .not-favorite {
-  font-size: 25px;
   color: gray;
   cursor: pointer;
+  font-size: 25px;
 }
 
 .favorite:checked ~ .not-favorite {
