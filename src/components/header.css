@@ -47,8 +47,3 @@
   text-decoration: none;
   width: 33.2%;
 }
-
-.nav-bar a.active {
-  background: rgb(170, 6, 170);
-  color: white;
-}
