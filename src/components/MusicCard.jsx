@@ -1,29 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './musicCard.css';
 
 class MusicCard extends React.Component {
-  state = {
-    loading: false,
-  };
-
   render() {
     const { music: { previewUrl, trackName, trackId },
       handleRemove, music, isChecked } = this.props;
-    const { loading } = this.state;
-    const loadingElement = <p>Carregando...</p>;
     return (
       <div>
-        <p>{trackName}</p>
-        <audio data-testid="audio-component" src={ previewUrl } controls>
-          <track kind="captions" />
-          O seu navegador não suporta o elemento
-          <code>audio</code>
-          .
-        </audio>
-        {loading ? loadingElement
-          : (
-            <label htmlFor={ trackName }>
+        <div className="track">
+          <h4>{trackName}</h4>
+          <div className="audio-container">
+            <audio data-testid="audio-component" src={ previewUrl } controls>
+              <track kind="captions" />
+              O seu navegador não suporta o elemento
+              <code>audio</code>
+              .
+            </audio>
+            <label className="favorite-label" htmlFor={ trackName }>
               <input
+                className="favorite"
                 defaultChecked={ isChecked }
                 name="favoriteSongs"
                 type="checkbox"
@@ -31,9 +27,12 @@ class MusicCard extends React.Component {
                 data-testid={ `checkbox-music-${trackId}` }
                 onClick={ () => handleRemove(music) }
               />
-              Favorita
+              <i className="fa-solid fa-heart is-favorite" />
+              <i className="fa-regular fa-heart not-favorite" />
             </label>
-          )}
+          </div>
+        </div>
+        <div className="line" />
       </div>
     );
   }

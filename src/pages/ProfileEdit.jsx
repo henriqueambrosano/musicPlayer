@@ -1,7 +1,8 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import Header from '../components/Header';
 import { getUser, updateUser } from '../services/userAPI';
+import Header from '../components/Header';
+import Loading from '../components/Loading';
 
 class ProfileEdit extends React.Component {
   state = {
@@ -54,12 +55,11 @@ class ProfileEdit extends React.Component {
   render() {
     const { loading, name, image, email, description, isBtnDisabled,
       redirect } = this.state;
-    const loadingElement = <p>Carregando...</p>;
     return (
       <div data-testid="page-profile-edit">
         <Header />
         {redirect && <Redirect to="/profile" /> }
-        {loading ? loadingElement
+        {loading ? <Loading />
           : (
             <section>
               <form>

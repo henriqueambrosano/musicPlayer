@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { getUser } from '../services/userAPI';
+import Loading from './Loading';
+import './header.css';
+import logo from '../images/logo.png';
 
 class Header extends React.Component {
   constructor(props) {
@@ -24,18 +27,30 @@ class Header extends React.Component {
 
   render() {
     const { name, loading } = this.state;
-    const loadingElement = <h1>Carregando...</h1>;
     return (
       <header data-testid="header-component">
-        {loading ? loadingElement
+        {loading ? <Loading />
           : (
-            <div>
-              <p data-testid="header-user-name">
-                {name}
-              </p>
-              <Link to="/search" data-testid="link-to-search">Pesquisar</Link>
-              <Link to="/favorites" data-testid="link-to-favorites">Favoritos</Link>
-              <Link to="/profile" data-testid="link-to-profile">Perfil</Link>
+            <div className="header-container">
+              <div className="top-section">
+                <img src={ logo } alt="trybetunes logo" />
+                <div className="user-info">
+                  <i className="fa-solid fa-circle-user" />
+                  <p data-testid="header-user-name">
+                    {`Olá, ${name}`}
+                  </p>
+                </div>
+              </div>
+              <div className="nav-bar">
+                <Link
+                  to="/search"
+                  data-testid="link-to-search"
+                >
+                  PESQUISAR
+                </Link>
+                <Link to="/favorites" data-testid="link-to-favorites">FAVORITOS</Link>
+                <Link to="/profile" data-testid="link-to-profile">PERFIL</Link>
+              </div>
             </div>
           )}
       </header>

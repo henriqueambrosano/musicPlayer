@@ -1,7 +1,9 @@
 import React from 'react';
 import Header from '../components/Header';
+import Loading from '../components/Loading';
 import MusicCard from '../components/MusicCard';
 import { getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
+import './favorites.css';
 
 class Favorites extends React.Component {
   constructor(props) {
@@ -29,12 +31,13 @@ class Favorites extends React.Component {
 
   render() {
     const { loading, favoriteTracks } = this.state;
-    const loadingElement = <p>Carregando...</p>;
     return (
-      <div data-testid="page-favorites">
+      <div className="page-favorites" data-testid="page-favorites">
         <Header />
-        {loading && loadingElement}
+        {loading && <Loading />}
         <div>
+          <h1>Músicas favoritas</h1>
+          <div className="line" />
           {favoriteTracks.map((track) => (<MusicCard
             isChecked
             music={ track }

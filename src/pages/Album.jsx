@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Loading from '../components/Loading';
 import Header from '../components/Header';
 import getMusics from '../services/musicsAPI';
 import MusicCard from '../components/MusicCard';
 import { addSong, getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
+import './album.css';
 
 class Album extends React.Component {
   constructor(props) {
@@ -13,7 +15,6 @@ class Album extends React.Component {
 
   state = {
     loading: true,
-    trackLoading: false,
     albumImage: '',
     artistName: '',
     albumName: '',
@@ -53,29 +54,29 @@ class Album extends React.Component {
   }
 
   render() {
-    const { albumImage, artistName, albumName, tracks, loading,
-      trackLoading } = this.state;
-    const loadingElement = <p>Carregando...</p>;
+    const { albumImage, artistName, albumName, tracks, loading } = this.state;
     return (
       <div data-testid="page-album">
         <Header />
-        <div className="album-container">
-          <div className="album">
-            <img src={ albumImage } alt={ albumName } />
-            <h2 data-testid="album-name">{albumName}</h2>
-            <h3 data-testid="artist-name">{artistName}</h3>
-          </div>
-          {loading && loadingElement}
-          <div className="tracks">
-            {tracks.map((track) => (<MusicCard
-              music={ track }
-              handleRemove={ this.addRemoveFavorite }
-              isChecked={ this.isFavorite(track) }
-              key={ track.trackId }
-              trackLoading={ trackLoading }
-            />))}
-          </div>
-        </div>
+        {loading ? <Loading />
+          : (
+            <div className="album-container">
+              <div className="album">
+                <img src={ albumImage } alt={ albumName } />
+                <h2 data-testid="album-name">{albumName}</h2>
+                <h3 data-testid="artist-name">{artistName}</h3>
+              </div>
+              <div className="tracks-container">
+                <div className="line" />
+                {tracks.map((track) => (<MusicCard
+                  music={ track }
+                  handleRemove={ this.addRemoveFavorite }
+                  isChecked={ this.isFavorite(track) }
+                  key={ track.trackId }
+                />))}
+              </div>
+            </div>
+          )}
       </div>
     );
   }

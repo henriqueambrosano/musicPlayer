@@ -1,0 +1,45 @@
+.track {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+}
+
+.line {
+  width: 100%;
+  height: 2px;
+  background-color: #dde0e3;
+}
+
+.audio-container {
+  display: flex;
+  align-items: center;
+}
+
+.track audio {
+  margin: 10px 20px;
+}
+.favorite {
+  display: none;
+}
+
+.favorite + .is-favorite {
+  display: none;
+}
+
+.favorite:checked + .is-favorite {
+  display: block;
+  font-size: 25px;
+  color: red;
+  cursor: pointer;
+}
+
+.favorite ~ .not-favorite {
+  font-size: 25px;
+  color: gray;
+  cursor: pointer;
+}
+
+.favorite:checked ~ .not-favorite {
+  display: none;
+}

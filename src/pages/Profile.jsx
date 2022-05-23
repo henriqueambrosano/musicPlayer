@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Header from '../components/Header';
 import { getUser } from '../services/userAPI';
+import Header from '../components/Header';
+import Loading from '../components/Loading';
 
 class Profile extends React.Component {
   state = {
-    loading: false,
+    loading: true,
     image: '',
     name: '',
     email: '',
@@ -19,14 +20,13 @@ class Profile extends React.Component {
   }
 
   render() {
-    const loadingElement = <p>Carregando...</p>;
     const { loading, description, name, image, email } = this.state;
     return (
       <div data-testid="page-profile">
         <Header />
-        {loading ? loadingElement
+        {loading ? <Loading />
           : (
-            <div className="user-info">
+            <div className="user-data">
               <div>
                 <img src={ image } alt={ name } data-testid="profile-image" />
                 <Link to="/profile/edit">Editar perfil</Link>

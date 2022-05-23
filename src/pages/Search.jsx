@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Header from '../components/Header';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
+import Header from '../components/Header';
+import Loading from '../components/Loading';
+import './search.css';
 
 class Search extends React.Component {
   constructor(props) {
@@ -28,6 +30,12 @@ class Search extends React.Component {
     this.setState({ [name]: value }, this.validateButton);
   }
 
+  camelCase = (str) => {
+    const camelString = str.split(' ')
+      .map((word) => word[0].toUpperCase() + word.substring(1)).join(' ');
+    return camelString;
+  }
+
   async searchArtist() {
     const { artistName } = this.state;
     this.setState({ loading: true, searchedArtist: artistName, artistName: '' });
@@ -43,16 +51,16 @@ class Search extends React.Component {
     const {
       isButtonDisabled,
       artistName, loading, searchResult, searchedArtist, noResultFound } = this.state;
-    const loadingElement = <h1>Carregando...</h1>;
     const noResultElement = <h1>Nenhum álbum foi encontrado</h1>;
     return (
       <div data-testid="page-search">
         <Header />
-        {loading ? loadingElement
+        {loading ? <Loading />
           : (
-            <section>
+            <div className="search-container">
               <form>
                 <input
+                  className="search-input"
                   type="text"
                   name="artistName"
                   value={ artistName }
@@ -61,35 +69,38 @@ class Search extends React.Component {
                   onChange={ this.onInputChange }
                 />
                 <button
+                  className="search-btn"
                   disabled={ isButtonDisabled }
                   type="button"
                   data-testid="search-artist-button"
                   onClick={ this.searchArtist }
                 >
-                  Procurar
+                  Pesquisar
                 </button>
               </form>
-            </section>
+            </div>
           )}
         {searchResult.length > 0
           && (
-            <div>
+            <div className="album-page">
               <h2>
-                {`Resultado de álbuns de: ${searchedArtist}`}
+                {`Resultado de álbuns de: ${this.camelCase(searchedArtist)}`}
               </h2>
-              {searchResult.map((album) => (
-                <div key={ album.collectionId }>
-                  <img alt={ album.collectionName } src={ album.artworkUrl100 } />
-                  <p>{ album.collectionName }</p>
-                  <p>{ album.artistName }</p>
-                  <Link
-                    data-testid={ `link-to-album-${album.collectionId}` }
-                    to={ `/album/${album.collectionId}` }
-                  >
-                    Go to album
-                  </Link>
-                </div>
-              ))}
+              <div className="albuns-container">
+                {searchResult.map((album) => (
+                  <div className="album-card" key={ album.collectionId }>
+                    <img alt={ album.collectionName } src={ album.artworkUrl100 } />
+                    <p className="title">{ album.collectionName }</p>
+                    <p>{ album.artistName }</p>
+                    <Link
+                      data-testid={ `link-to-album-${album.collectionId}` }
+                      to={ `/album/${album.collectionId}` }
+                    >
+                      Ir para o album
+                    </Link>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
         {noResultFound && noResultElement}
