@@ -62,19 +62,23 @@ class ProfileEdit extends React.Component {
         {loading ? <Loading />
           : (
             <section>
-              <form>
-                <div>
-                  <img src={ image } alt={ name } />
-                  <input
-                    data-testid="edit-input-image"
-                    type="text"
-                    name="image"
-                    value={ image }
-                    onChange={ this.handleChange }
-                  />
+              <form className="user-data">
+                <div className="image-section">
+                  <img className="user-image" src={ image } alt={ name } />
+                  <div>
+                    <h3>URL da imagem de perfil</h3>
+                    <input
+                      data-testid="edit-input-image"
+                      type="text"
+                      name="image"
+                      value={ image }
+                      onChange={ this.handleChange }
+                      placeholder="Insira um link"
+                    />
+                  </div>
                 </div>
-                <div>
-                  <p>Nome</p>
+                <div className="user-data-section">
+                  <h3>Nome</h3>
                   <input
                     data-testid="edit-input-name"
                     type="text"
@@ -83,8 +87,8 @@ class ProfileEdit extends React.Component {
                     onChange={ this.handleChange }
                   />
                 </div>
-                <div>
-                  <p>Email</p>
+                <div className="user-data-section">
+                  <h3>Email</h3>
                   <input
                     data-testid="edit-input-email"
                     type="email"
@@ -93,17 +97,18 @@ class ProfileEdit extends React.Component {
                     onChange={ this.handleChange }
                   />
                 </div>
-                <div>
-                  <p>Descrição</p>
-                  <input
+                <div className="user-data-section">
+                  <h3>Descrição</h3>
+                  <textarea
+                    className="description-input"
                     data-testid="edit-input-description"
-                    type="text"
                     name="description"
                     value={ description }
                     onChange={ this.handleChange }
                   />
                 </div>
                 <button
+                  className="btn-salvar"
                   disabled={ isBtnDisabled }
                   data-testid="edit-button-save"
                   type="button"
