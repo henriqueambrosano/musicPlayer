@@ -36,7 +36,8 @@ class Search extends React.Component {
     return camelString;
   }
 
-  async searchArtist() {
+  async searchArtist(e) {
+    e.preventDefault();
     const { artistName } = this.state;
     this.setState({ loading: true, searchedArtist: artistName, artistName: '' });
     const result = await searchAlbumsAPI(artistName);
@@ -58,7 +59,7 @@ class Search extends React.Component {
         {loading ? <Loading />
           : (
             <div className="search-container">
-              <form>
+              <form onSubmit={ this.searchArtist }>
                 <input
                   className="search-input"
                   type="text"
