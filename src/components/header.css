@@ -12,8 +12,12 @@
   padding: 0 40px;
 }
 
-.top-section img {
+.top-section a {
   height: 95%;
+}
+
+.top-section-image {
+  height: 100%;
   border-radius: 15px;
 }
 

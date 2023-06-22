@@ -20,13 +20,20 @@
 }
 
 .search-btn {
-  background: rgb(10 54 228);
+  background: white;
+  border: 1px solid blue;
   border-radius: 2px;
-  color: white;
+  color: blue;
   cursor: pointer;
   font-weight: 900;
   margin-left: 10px;
   padding: 10px 15px;
+  transition: 0.4s ease;
+}
+
+.search-btn:hover {
+  background-color: blue;
+  color: white;
 }
 
 .album-page {

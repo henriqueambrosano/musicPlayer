@@ -33,7 +33,13 @@ class Header extends React.Component {
           : (
             <div className="header-container">
               <div className="top-section">
-                <img src={ logoHeader } alt="trybetunes logo" />
+                <Link to="/">
+                  <img
+                    src={ logoHeader }
+                    alt="trybetunes logo"
+                    className="top-section-image"
+                  />
+                </Link>
                 <div className="user-info">
                   <i className="fa-solid fa-circle-user" />
                   <p data-testid="header-user-name">

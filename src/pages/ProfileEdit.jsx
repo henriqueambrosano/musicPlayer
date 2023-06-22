@@ -28,12 +28,12 @@ class ProfileEdit extends React.Component {
   }
 
   validadeForm = () => {
-    const { name, image, email, description } = this.state;
+    const { name, image, email } = this.state;
 
     // regex copiada do site https://www.w3resource.com/javascript/form/email-validation.php
     const mailFormat = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 
-    if (name && image && email.match(mailFormat) && description) {
+    if (name && image && (!email || email.match(mailFormat))) {
       this.setState({ isBtnDisabled: false });
     } else {
       this.setState({ isBtnDisabled: true });
