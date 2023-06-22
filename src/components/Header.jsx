@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { getUser } from '../services/userAPI';
 import Loading from './Loading';
 import './header.css';
-import logo from '../images/logo.png';
+import logoHeader from '../images/logo-header.png';
 
 class Header extends React.Component {
   constructor(props) {
@@ -33,7 +33,7 @@ class Header extends React.Component {
           : (
             <div className="header-container">
               <div className="top-section">
-                <img src={ logo } alt="trybetunes logo" />
+                <img src={ logoHeader } alt="trybetunes logo" />
                 <div className="user-info">
                   <i className="fa-solid fa-circle-user" />
                   <p data-testid="header-user-name">
